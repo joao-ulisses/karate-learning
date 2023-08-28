@@ -2,17 +2,22 @@ Feature: Articles
 
     Background: Define URL
         Given url apiUrl
-        
+        * def articleRequestBody = read('classpath:conduitApp/json/newArticleRequest.json')
+        * def dataGenerator = Java.type('conduitApp.helpers.DataGenerator')
+        * set articleRequestBody.article.title = dataGenerator.getRandomArticleValues().title
+        * set articleRequestBody.article.description = dataGenerator.getRandomArticleValues().description
+        * set articleRequestBody.article.body = dataGenerator.getRandomArticleValues().body
+
     Scenario: Create a new article
         Given path 'articles'
-        And request { "article": { "tagList": [], "title": "joaotitle", "description": "aaa", "body": "aaa" } }
+        And request articleRequestBody
         When method Post
         Then status 201
-        # And match response.article.title == 'ada4'
+        And match response.article.title == articleRequestBody.article.title
 
     Scenario: Create and delete article
         Given path 'articles'
-        And request { "article": { "tagList": [], "title": "Delete this34", "description": "aaa", "body": "aaa" } }
+        And request articleRequestBody
         When method Post
         Then status 201
         * def articleID = response.article.slug

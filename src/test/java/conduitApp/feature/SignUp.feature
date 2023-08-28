@@ -3,12 +3,12 @@ Feature: Sign Up new user
 
     Background: Preconditions
         * def dataGenerator = Java.type('conduitApp.helpers.DataGenerator')
+        * def timeValidator = read('classpath:conduitApp/helpers/timeValidator.js')
+        * def randomEmail = dataGenerator.getRandomEmail()
+        * def randomUsername = dataGenerator.getRandomUsername()
         Given url apiUrl
     
     Scenario: New User Sign Up
-        * def randomEmail = dataGenerator.getRandomEmail()
-        * def randomUsername = dataGenerator.getRandomUsername()
-
         Given path 'users'
         And request
         """
@@ -36,9 +36,6 @@ Feature: Sign Up new user
         """
 
     Scenario Outline: Validate Sign Up error messages
-        * def randomEmail = dataGenerator.getRandomEmail()
-        * def randomUsername = dataGenerator.getRandomUsername()
-
         Given path 'users'
         And request
         """
