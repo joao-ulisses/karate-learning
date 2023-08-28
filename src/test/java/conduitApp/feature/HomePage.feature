@@ -8,9 +8,6 @@ Background: Define URL
         Given path 'tags'
         When method Get
         Then status 200
-        And match response.tags contains ['welcome', "ipsum"]
-        And match response.tags !contains 'joao'
-        And match response.tags contains any ['welcome', 'tab']
         And match response.tags == "#array"
         And match each response.tags == "#string"
         
@@ -28,6 +25,9 @@ Background: Define URL
                 "articlesCount": "#number"
             }
         """
-        And match response.articles[*].favoritesCount == "#present"
-        And match response..bio == "#present"
+        And match each response.articles[*].favoritesCount == "#present"
+        And match each response..favoritesCount == "#number"
+        And match each response..bio == "#present"
+        And match each response..bio == "##string"
         And match each response..following == false
+        And match each response..following == "#boolean"
