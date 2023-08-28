@@ -12,22 +12,36 @@ Background: Define URL
         And match each response.tags == "#string"
         
     Scenario: Get 10 articles from the 
+        * def timeValidator = read('classpath:conduitApp/helpers/timeValidator.js')
         Given params { limit: 10, offset: 0 }
         Given path 'articles'
         When method Get
         Then status 200
-        And match response.articles == '#[10]'
-        And match response.articlesCount != 197
         And match response == 
         """
             {
-                "articles": "#array",
+                "articles": "#[10]",
                 "articlesCount": "#number"
             }
         """
-        And match each response.articles[*].favoritesCount == "#present"
-        And match each response..favoritesCount == "#number"
-        And match each response..bio == "#present"
-        And match each response..bio == "##string"
-        And match each response..following == false
-        And match each response..following == "#boolean"
+        And match each response.articles == 
+        """
+            {
+                "slug": "#string",
+                "title": "#string",
+                "description": "#string",
+                "body": "#string",
+                "tagList": "#array",
+                "createdAt": "#? timeValidator(_)",
+                "updatedAt": "#? timeValidator(_)",
+                "favorited": "#boolean",
+                "favoritesCount": "#number",
+                "author": {
+                    "username": "#string",
+                    "bio": "##string",
+                    "image": "#string",
+                    "following": "#boolean"
+                }
+
+            }
+        """
