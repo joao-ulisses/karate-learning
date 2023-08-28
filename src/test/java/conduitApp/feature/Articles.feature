@@ -1,7 +1,7 @@
 Feature: Articles
 
     Background: Define URL
-        Given url apiurl
+        Given url apiUrl
         
     Scenario: Create a new article
         Given path 'articles'

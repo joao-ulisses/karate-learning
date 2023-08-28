@@ -5,7 +5,7 @@ function fn() {
     env = 'dev';
   }
   var config = {
-    apiurl: 'https://api.realworld.io/api/'
+    apiUrl: 'https://api.realworld.io/api/'
   }
   if (env == 'dev') {
     config.userEmail = "testmailoi@testmailoi.testmailoi"

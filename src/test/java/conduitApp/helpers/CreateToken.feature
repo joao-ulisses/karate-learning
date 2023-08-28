@@ -1,7 +1,7 @@
 Feature: Create Token
 
     Scenario: Create Token
-        Given url apiurl
+        Given url apiUrl
         Given path 'users/login'
         And request { "user": {"email": "#(userEmail)", "password": "#(userPassword)"}}
         When method Post

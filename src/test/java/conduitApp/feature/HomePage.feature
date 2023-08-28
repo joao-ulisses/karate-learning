@@ -1,7 +1,7 @@
 Feature: Tests for the home page
 
 Background: Define URL
-    Given url apiurl
+    Given url apiUrl
     
     Scenario: Get all tags
         Given path 'tags'
