@@ -1,4 +1,3 @@
-@debug
 Feature: Sign Up new user
 
     Background: Preconditions
