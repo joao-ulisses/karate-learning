@@ -1,3 +1,4 @@
+@debug
 Feature: Tests for the home page
 
 Background: Define URL
@@ -9,6 +10,7 @@ Background: Define URL
         Then status 200
         And match response.tags contains ['welcome', "ipsum"]
         And match response.tags !contains 'joao'
+        And match response.tags contains any ['welcome', 'tab']
         And match response.tags == "#array"
         And match each response.tags == "#string"
         
@@ -18,4 +20,14 @@ Background: Define URL
         When method Get
         Then status 200
         And match response.articles == '#[10]'
-        And match response.articlesCount == 197
+        And match response.articlesCount != 197
+        And match response == 
+        """
+            {
+                "articles": "#array",
+                "articlesCount": "#number"
+            }
+        """
+        And match response.articles[*].favoritesCount == "#present"
+        And match response..bio == "#present"
+        And match each response..following == false

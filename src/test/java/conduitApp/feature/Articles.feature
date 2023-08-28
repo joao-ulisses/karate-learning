@@ -10,7 +10,6 @@ Feature: Articles
         Then status 201
         # And match response.article.title == 'ada4'
 
-@debug
     Scenario: Create and delete article
         Given path 'articles'
         And request { "article": { "tagList": [], "title": "Delete this34", "description": "aaa", "body": "aaa" } }
