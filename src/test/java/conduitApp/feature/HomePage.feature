@@ -79,3 +79,8 @@ Background: Define URL
         When method Get
         When method Get
         Then status 200 
+
+    Scenario: Number to string
+        * def foo = 10
+        * def json = {"bar": #(foo+'')}
+        * match json == {"bar": '10'}
