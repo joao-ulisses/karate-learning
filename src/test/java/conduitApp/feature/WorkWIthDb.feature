@@ -1,3 +1,4 @@
+@ignore
 Feature: work with DB
 
     Background: connect to db

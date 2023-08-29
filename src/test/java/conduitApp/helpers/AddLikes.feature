@@ -1,3 +1,4 @@
+@ignore
 Feature: Add likes
 
     Background:

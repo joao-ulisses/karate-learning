@@ -13,6 +13,7 @@
         <maven.compiler.version>3.8.1</maven.compiler.version>
         <maven.surefire.version>2.22.2</maven.surefire.version>        
         <karate.version>1.4.0</karate.version>
+        <gatling-maven-plugin>4.3.4</gatling-maven-plugin>
     </properties>    
 
     <dependencies>         
@@ -42,6 +43,12 @@
             <artifactId>json</artifactId>
             <version>20230227</version>
         </dependency>
+        <dependency>
+            <groupId>com.intuit.karate</groupId>
+            <artifactId>karate-gatling</artifactId>
+            <version>${karate.version}</version>
+            <scope>test</scope>
+        </dependency>  
     </dependencies>
 
     <build>
@@ -73,6 +80,39 @@
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                 </configuration>
             </plugin>          
+            <plugin>
+                <groupId>io.gatling</groupId>
+                <artifactId>gatling-maven-plugin</artifactId>
+                <version>4.3.4</version>
+                <configuration>
+                    <simulationsFolder>src/test/java/conduitApp/performance</simulationsFolder>
+                    <configFolder>src/test/java/conduitApp/performance/data</configFolder>
+                </configuration>               
+            </plugin>
+             <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+                <version>4.8.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>testCompile</goal>
+                        </goals>
+                        <configuration>
+                            <args>
+                                <arg>-Jbackend:GenBCode</arg>
+                                <arg>-Jdelambdafy:method</arg>
+                                <arg>-target:jvm-1.8</arg>
+                                <arg>-deprecation</arg>
+                                <arg>-feature</arg>
+                                <arg>-unchecked</arg>
+                                <arg>-language:implicitConversions</arg>
+                                <arg>-language:postfixOps</arg>
+                            </args>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>        
     </build>       
     
